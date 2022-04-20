@@ -1,0 +1,227 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace lab._5
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("hriv1: ");
+            double hriv = Convert.ToDouble(Console.ReadLine());
+            Console.WriteLine("kop1: ");
+            double kop = Convert.ToDouble(Console.ReadLine());
+            Money a = new Money(hriv, kop);
+            String result_a = a.ToString();
+            //Console.WriteLine("hriv: ");
+           // Console.WriteLine("{0}", result_a);
+
+            Console.WriteLine("hriv2: ");
+            _ = Convert.ToDouble(Console.ReadLine());
+            Console.WriteLine("kop2: ");
+            _ = Convert.ToDouble(Console.ReadLine());
+            Money b = new Money(hriv, kop);
+            String result_b = b.ToString();
+           // Console.WriteLine("hriv: ");
+           // Console.WriteLine("{0}", result_b);
+
+            _ = new Money();
+            Console.WriteLine("vidnimania: ");
+            Money y = a - b;
+
+            _ = new Money();
+            Console.WriteLine("dodavania: ");
+            _ = a + b;
+
+            Money c = new Money();
+            Console.WriteLine("dilenia: ");
+            _ = a / b;
+
+            bool boolean_is = a == b;
+            Console.WriteLine("hriv == hriv: ");
+            Console.WriteLine("{0}", boolean_is);
+            Console.WriteLine("---------------");
+
+            bool boolean_not = a != b;
+            Console.WriteLine("hriv != hriv: ");
+            Console.WriteLine("{0}", boolean_not);
+            Console.WriteLine("---------------");
+
+            a++;
+            result_a = a.ToString();
+            Console.WriteLine("hriv++: ");
+            a--;
+            result_a = a.ToString();
+            Console.WriteLine("hriv--: ");
+
+            ++b;
+            result_b = b.ToString();
+            Console.WriteLine("++kop: ");
+            --b;
+            result_b = b.ToString();
+            Console.WriteLine("--kop: ");
+
+
+            Console.ReadKey();
+        }
+    }
+}
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace lab._5
+{
+   //Створити клас Money для роботи з грошовими сумами.Число має бути
+//представлене двома полями:
+//• типу long для гривень і
+//• типу byte – для копійок.
+//Дробова частина (копійки) при виводі на екран має бути відокремлена від цілої
+//частини комою. Реалізувати методи:
+//• віднімання сум –,
+//• додавання сум +,
+//• ділення сум /,
+//• операції порівняння сум (> , <, ==).
+    class Money
+    {
+        private long hriv;
+        private byte kop;
+        private double v1;
+        private double v2;
+      
+        public Money()
+        {
+            hriv = 0;
+            kop = 0;
+        }
+
+        public Money(long hriv, byte kop)//ініціалізації
+        {
+            this.hriv = hriv;
+            this.kop = kop;
+   
+        }
+
+        public Money(double v, Money m)
+        {
+            this.hriv = m.hriv;
+            this.kop = m.kop;
+          
+        }
+
+        public Money(double v1, double v2)
+        {
+            this.v1 = v1;
+            this.v2 = v2;
+        }
+
+        public Money(double hriv)
+        {
+        }
+        public Money(Money m)//копіювання
+        {
+            this.hriv = m.hriv;
+            this.kop = m.kop;
+        }
+        
+
+    public Money(long hriv)
+        {
+            this.hriv = hriv;
+            
+        }
+
+        public void SetHriv(long hriv)
+        {
+            this.hriv = hriv;
+            
+        }
+
+        public void SetKop(byte kop)
+        {
+            this.kop = kop;
+          
+        }
+
+        public double GetHriv()
+        {
+            return this.hriv;
+            
+        }
+
+        public double GetKop()
+        {
+            return this.kop;
+
+        }
+        public static Money operator -(Money a, Money b)
+        {
+            return new Money(a.hriv - b.hriv, a.kop - b.kop);
+        }
+        public static Money operator +(Money a, Money b)
+        {
+            return new Money(a.hriv + b.hriv, a.kop + b.kop);
+        }
+        public static Money operator /(Money a, Money b)
+        {
+            double hriv1 = a.hriv;
+            double kop1 = a.kop;
+            double hriv2 = b.hriv;
+            double kop2 = b.kop;
+            return new Money(hriv1 / hriv2, kop1 / kop2);
+                //((hriv1 * hriv2 - kop1 * kop2) / (hriv2 * hriv2 + kop2 * kop2), 
+                //(-hriv1 * kop2 + kop1 * hriv2) / (hriv2 * hriv2 + i2 * i2));
+        }
+
+        public static bool operator == (Money a, Money b)
+        {
+            if (a.hriv == b.hriv && a.kop == b.kop)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public static bool operator !=(Money a, Money b)
+        {
+            if (a.hriv == b.hriv && a.kop == b.kop)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+
+        public static Money operator --(Money m)
+        {
+            m.hriv--;
+            m.kop--;
+            return m;
+        }
+
+        public static Money operator ++(Money m)
+        {
+            m.hriv++;
+            m.kop++;
+            return m;
+        }
+
+        public override string ToString()
+        {
+            return " hriv: " + this.hriv + "\n kop: " + this.kop;
+        }
+    }
+
+}
